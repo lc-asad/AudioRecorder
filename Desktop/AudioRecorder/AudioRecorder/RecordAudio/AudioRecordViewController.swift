@@ -30,13 +30,7 @@ class AudioRecordViewController: UIViewController {
     
     //MARK: variables
     private let disposeBag = DisposeBag()
-    var viewModel: AudioRecordViewModel? {
-        didSet {
-            if isViewLoaded {
-                setupBindings()
-            }
-        }
-    }
+    let viewModel = AudioRecordViewModel()
     
     //MARK: UIViewController life cycle methods
     override func viewDidLoad() {
@@ -44,15 +38,15 @@ class AudioRecordViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         decorateUI()
-        setupBindings()
         initialSetup()
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        refreshVw.roundCorners(corners: [.topLeft,.topRight], radius: 12.0)
-        deleteVw.roundCorners(corners: [.bottomLeft,.bottomRight], radius: 12.0)
+        refreshVw.setCustomCornerRadius(corners: [.topLeft,.topRight], radius: 12.0)
+        deleteVw.setCustomCornerRadius(corners: [.bottomLeft,.bottomRight], radius: 12.0)
         
     }
     
@@ -60,11 +54,8 @@ class AudioRecordViewController: UIViewController {
     private func decorateUI() {
         
         lblRecording.text = ""
-        bottomVw.layer.cornerRadius = 10
-        bottomVw.layer.shadowColor = UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.19).cgColor
-        bottomVw.layer.shadowOpacity = 1
-        bottomVw.layer.shadowOffset = .zero
-        bottomVw.layer.shadowRadius = 3
+        bottomVw.setCornerRadius(radius: 10.0);
+        bottomVw.setShadow(shadowColor: UIColor.init(red: 0, green: 0, blue: 0, alpha: 0.19), shadowOpacity: 1.0, shadowRadius: 3, offset: .zero)
         bottomVw.isHidden = true
         btnPlay.isHidden = true;
         
@@ -75,6 +66,14 @@ class AudioRecordViewController: UIViewController {
     
     //MARK: Initial setup
     private func initialSetup() {
+        
+        bindButtons()
+        configureBindings()
+        setupBindings()
+    }
+    
+    // MARK: Bind to  buttons
+    func bindButtons() {
         
         btnCancel.rx.tap.bind{ [weak self] in
             self?.bottomVw.isHidden = true
@@ -91,9 +90,112 @@ class AudioRecordViewController: UIViewController {
         btnCancelPopup.rx.tap.bind { [weak self] in
             self?.removePupupContainer()
         }.disposed(by: disposeBag)
+        
+        //MARK: Sharing
+        btnShare.rx.tap.bind { [weak self] in
+            
+            self?.shareAudioFile(viewModel: self!.viewModel)
+            
+        }.disposed(by: disposeBag)
     }
     
+    //MARK: Bindings
+    func configureBindings() {
+        
+        // Recording
+        viewModel.isRecording.asDriver().drive(onNext: { [weak self] isRecording in
+            guard let self = self else { return }
+            
+            UIView.transition(with: self.btnRecord, duration: 0.6, options: .transitionFlipFromLeft, animations: {
+                
+                let url = self.viewModel.isFileExists.value
+                
+                if(url == "") {
+                    self.bottomVw.isHidden = true
+                    self.btnPlay.isHidden  = true
+                }
+                else {
+                    self.bottomVw.isHidden = false
+                    self.btnPlay.isHidden  = false
+                }
+                if isRecording {
+                    self.lblRecording.text = "Recording ..."
+                    self.btnRecord.setImage(UIImage(imageLiteralResourceName: "barRecordPlaying"), for: .normal)
+                } else {
+                    
+                    self.lblRecording.text = ""
+                    self.btnRecord.setImage(UIImage(imageLiteralResourceName: "barRecord"), for: .normal)
+                }
+                
     
+            })
+        }).disposed(by: disposeBag)
+        
+        // Play
+        viewModel.isPlaying.asDriver().drive(onNext: { [weak self] isPlaying in
+            
+            if isPlaying {
+                
+                self?.lblRecording.text = "Playing ..."
+            }
+            else {
+                self?.lblRecording.text = ""
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+
+    
+    private func setupBindings() {
+        
+        // Memorize button
+        btnMemorize.rx.tap.bind { [weak self] in
+            self?.viewModel.isRecording.asDriver().drive(onNext: { [weak self] isRecording in
+                if !isRecording {
+                    self?.addPupupContainerVw()
+                }
+            }).dispose()
+            
+        }.disposed(by: disposeBag)
+        
+       
+        // Play button
+        btnPlay.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { _ in
+            
+            self.viewModel.startPlaying()
+            
+        }.disposed(by: disposeBag)
+        
+        // Record buttons
+        btnRecord.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [self] _ in
+            self.viewModel.toggleRecord()
+        }.disposed(by: disposeBag)
+        
+        btnAgain.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [self] _ in
+            viewModel.toggleRecord()
+        }.disposed(by: disposeBag)
+        
+        btnRecordAgain.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [self] in
+            
+            self.removePupupContainer()
+            self.bottomVw.isHidden = true
+            viewModel.toggleRecord()
+            
+        }.disposed(by: disposeBag)
+        
+        
+        // Delet button
+        btnDeleteFile.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [self] in
+            
+            viewModel.deleteAudioFile()
+            self.removePupupContainer()
+            self.btnPlay.isHidden = true;
+            self.bottomVw.isHidden = true
+            
+        }.disposed(by: disposeBag)
+        
+    }
+
     //MARK: Add container on memorized
     private func addPupupContainerVw() {
         
@@ -118,139 +220,12 @@ class AudioRecordViewController: UIViewController {
         }
         
     }
-
-    //MARK: Bindings
-    private func setupBindings() {
-        guard let viewModel = viewModel else { return }
-        
-        btnMemorize.rx.tap.bind { [weak self] in
-            viewModel.isRecording.asDriver().drive(onNext: { [weak self] isRecording in
-                if !isRecording {
-                    self?.addPupupContainerVw()
-                }
-            }).dispose()
-            
-        }.disposed(by: disposeBag)
-        
-        toggleOnClick(viewModel: viewModel)
-        
-        //MARK: Recording
-        recording(with: viewModel)
-        
-        //MARK: Playing
-        playing(with: viewModel)
-        
-        //MARK: Sharing
-        btnShare.rx.tap.bind { [weak self] in
-            
-            self?.shareAudioFile(viewModel: viewModel)
-            
-        }.disposed(by: disposeBag)
-    }
-    
-    
-    //MARK: Recording
-    private func recording(with viewModel: AudioRecordViewModel) {
-        
-        viewModel.isRecording.asDriver().drive(onNext: { [weak self] isRecording in
-            guard let self = self else { return }
-            UIView.transition(with: self.btnRecord, duration: 0.6, options: .transitionFlipFromLeft, animations: {
-                
-                let url = viewModel.isFileExists.value
-                if(url == "") {
-                    self.bottomVw.isHidden = true
-                    self.btnPlay.isHidden  = true
-                }
-                else {
-                    self.bottomVw.isHidden = false
-                    self.btnPlay.isHidden  = false
-                }
-                if isRecording {
-                    self.lblRecording.text = "Recording ..."
-                    self.btnRecord.setImage(UIImage(imageLiteralResourceName: "barRecordPlaying"), for: .normal)
-                } else {
-                    
-                    self.lblRecording.text = ""
-                    self.btnRecord.setImage(UIImage(imageLiteralResourceName: "barRecord"), for: .normal)
-                }
-            })
-        }).disposed(by: disposeBag)
-    }
-    
-    //MARK: Playing
-    private func playing(with viewModel: AudioRecordViewModel) {
-        
-        viewModel.isPlaying.asDriver().drive(onNext: { [weak self] isPlaying in
-            
-            if isPlaying {
-                
-                self?.lblRecording.text = "Playing ..."
-            }
-            else {
-                self?.lblRecording.text = ""
-            }
-        }).disposed(by: disposeBag)
-        
-    }
-    
-    private func playAudioFileBinding() {
-        
-        btnPlay.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [weak viewModel] in
-            viewModel?.startPlaying()
-            if viewModel!.isPlaying.value {
-                self.lblRecording.text = "Playing ..."
-            }
-            else{
-                self.lblRecording.text = ""
-            }
-        }.disposed(by: disposeBag)
-    }
-    
-    
-    //MARK: event binding
-    private func toggleOnClick(viewModel: AudioRecordViewModel) {
-        recordVoiceBinding()
-        playAudioFileBinding()
-        deletFileBinding()
-    }
-    
-    
-    private func recordVoiceBinding() {
-        
-        btnRecord.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [weak viewModel] in
-            viewModel?.toggleRecord()
-        }.disposed(by: disposeBag)
-        
-        btnAgain.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [weak viewModel] in
-            viewModel?.toggleRecord()
-        }.disposed(by: disposeBag)
-        
-        btnRecordAgain.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [weak viewModel] in
-            
-            self.removePupupContainer()
-            self.bottomVw.isHidden = true
-            viewModel?.toggleRecord()
-            
-        }.disposed(by: disposeBag)
-    }
-    
-    
-    //MARK: Delete file
-    private func deletFileBinding() {
-        btnDeleteFile.rx.tap.throttle(.seconds(1), scheduler: MainScheduler.instance).bind { [weak viewModel] in
-            
-            self.removePupupContainer()
-            viewModel?.deleteAudioFile()
-            self.btnPlay.isHidden = true;
-            self.bottomVw.isHidden = true
-            
-        }.disposed(by: disposeBag)
-    }
     
     //MARK: share file
     private func shareAudioFile(viewModel: AudioRecordViewModel) {
         
-        viewModel.sharePersistFile(viewcontroller: self)
+        viewModel.shareFile(viewcontroller: self)
     }
+    
 }
 

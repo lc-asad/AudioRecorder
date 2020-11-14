@@ -9,86 +9,66 @@ import AVFoundation
 import RxSwift
 import RxCocoa
 
-class AudioRecordViewModel {
+struct AudioRecordViewModel {
     
-    private let model: AudioRecordModel
-    //private let coordinator: CreateAudioCoordinatorType
+    private var service: AudioService!
+    let model = AudioRecordModel(name: "002_024.m4a")
+    
     let disposeBag = DisposeBag()
-    
     let isRecording: BehaviorRelay<Bool>
     let isFileExists = BehaviorRelay<String>(value: "")
     let isPlaying: BehaviorRelay<Bool>
     
-    init(model: AudioRecordModel) {
+    init(service: AudioService = AudioService.shared) {
         
-        self.model = model
-        //self.coordinator = coordinator
-        
-        //Record
-        self.isRecording = model.isRecording
-        
-        //Play
-        isPlaying = model.isPlaying
-        
-        
-        model.isFileExists.map{$0.description}.bind(to: isFileExists).disposed(by: disposeBag)
-        model.recordResult.observeOn(MainScheduler.instance).subscribe(onNext: { record in
-            debugPrint("saved record \(record)")
-        }, onError: { [weak self] (error) in
-           
-            debugPrint("recording canceled \(error)")
+        self.service = service
+        isRecording  = service.isRecording
+        isPlaying    = service.isPlaying
+       
+        service.isFileExists.map{$0.description}.bind(to: isFileExists).disposed(by: disposeBag)
 
-        },
-        onCompleted: {
-            debugPrint("recording canceled")
-        }).disposed(by: disposeBag)
     }
     
+    //ToggleRecording
     func toggleRecord() {
         
-        if model.isRecording.value {
-            model.stopRecording()
+        if service.isRecording.value {
+            service.stopRecording()
         } else {
-            model.startRecording()
+            service.startRecording(with: model.fileURL!)
         }
     }
     
     
+    // Play audio file
     func startPlaying() {
         
-        if(model.isPlaying.value){
-            model.stopPlayer()
-            isPlaying.accept(model.isPlaying.value)
-        }
-        else {
-            model.playItem(with: "002_024.m4a")
-            isPlaying.accept(model.isPlaying.value)
-        }
-    }
-    
-    func cancel() {
+        service.playItem(with: model.fileURL!)
         
-        model.cancelRecording()
     }
     
+    // Cancel recording
+    private func cancel() {
+        
+        service.cancelRecording()
+    }
+    
+    // Delete audio file
     func deleteAudioFile(){
-        if(model.isPlaying.value){
-            model.stopPlayer()
+        if(service.isPlaying.value){
+            service.stopPlayer()
         }
-        model.deleteFile()
+        service.deleteFile(at: model)
     }
     
-    //MARK: Share file
-    
-    func sharePersistFile(viewcontroller: AudioRecordViewController) {
-        let filePath = Directories.documentsDirectory.appendingPathComponent("002_024.m4a")
+    // Share file
+    func shareFile(viewcontroller: AudioRecordViewController)  {
         
-        let activityItems: [Any] = [filePath, "Share file!"]
-        let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
-        
-        activityController.popoverPresentationController?.sourceView = viewcontroller.view
-        activityController.popoverPresentationController?.sourceRect = viewcontroller.view.frame
-        viewcontroller.present(activityController, animated: true, completion: nil)
+        service.sharePersistFile(viewcontroller: viewcontroller, filePath: model.fileURL!)
     }
-    
 }
+
+
+
+
+

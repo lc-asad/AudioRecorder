@@ -18,7 +18,10 @@
 		C37230FA2552FDEE00A09B49 /* Directories.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37230F92552FDEE00A09B49 /* Directories.swift */; };
 		C372310325531D8E00A09B49 /* AudioRecord.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C372310225531D8E00A09B49 /* AudioRecord.storyboard */; };
 		C372312325532A5F00A09B49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372312125532A5F00A09B49 /* Player.swift */; };
-		C37DB2172555613100758A5A /* RoundCornor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37DB2162555613100758A5A /* RoundCornor.swift */; };
+		C37AB16725593BDF006BE25A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AB16625593BDF006BE25A /* Result.swift */; };
+		C37AB177255BCC44006BE25A /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AB176255BCC44006BE25A /* AudioService.swift */; };
+		C37AB183255BD61B006BE25A /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AB182255BD61B006BE25A /* Store.swift */; };
+		C37DB2172555613100758A5A /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37DB2162555613100758A5A /* ViewExtensions.swift */; };
 		C3A24588255707B200C2A00E /* StoryboardContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A24587255707B200C2A00E /* StoryboardContainer.swift */; };
 		EA9082CFDB905A111F958EE5 /* Pods_AudioRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D65480626A6BC221B4E752 /* Pods_AudioRecorder.framework */; };
 /* End PBXBuildFile section */
@@ -40,7 +43,10 @@
 		C37230F92552FDEE00A09B49 /* Directories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directories.swift; sourceTree = "<group>"; };
 		C372310225531D8E00A09B49 /* AudioRecord.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AudioRecord.storyboard; sourceTree = "<group>"; };
 		C372312125532A5F00A09B49 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		C37DB2162555613100758A5A /* RoundCornor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundCornor.swift; sourceTree = "<group>"; };
+		C37AB16625593BDF006BE25A /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		C37AB176255BCC44006BE25A /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
+		C37AB182255BD61B006BE25A /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		C37DB2162555613100758A5A /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C3A24587255707B200C2A00E /* StoryboardContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +100,7 @@
 		C35193E42552C56600169655 /* AudioRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				C37AB175255BCC21006BE25A /* Service */,
 				C372311D2553277E00A09B49 /* Extensions */,
 				C37230F52552FD1200A09B49 /* Helper */,
 				C35193FA2552C65C00169655 /* RecordAudio */,
@@ -124,6 +131,7 @@
 				C37230F92552FDEE00A09B49 /* Directories.swift */,
 				C3A24587255707B200C2A00E /* StoryboardContainer.swift */,
 				C337A99C2556FA1C00E2126A /* MainContainer.swift */,
+				C37AB16625593BDF006BE25A /* Result.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -131,9 +139,18 @@
 		C372311D2553277E00A09B49 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				C37DB2162555613100758A5A /* RoundCornor.swift */,
+				C37DB2162555613100758A5A /* ViewExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C37AB175255BCC21006BE25A /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				C37AB176255BCC44006BE25A /* AudioService.swift */,
+				C37AB182255BD61B006BE25A /* Store.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,9 +274,12 @@
 				C35193E62552C56600169655 /* AppDelegate.swift in Sources */,
 				C35194002552C6CC00169655 /* AudioRecordViewModel.swift in Sources */,
 				C372312325532A5F00A09B49 /* Player.swift in Sources */,
+				C37AB183255BD61B006BE25A /* Store.swift in Sources */,
 				C37230F72552FD3600A09B49 /* Recorder.swift in Sources */,
+				C37AB177255BCC44006BE25A /* AudioService.swift in Sources */,
 				C35193FC2552C6BB00169655 /* AudioRecordModel.swift in Sources */,
-				C37DB2172555613100758A5A /* RoundCornor.swift in Sources */,
+				C37DB2172555613100758A5A /* ViewExtensions.swift in Sources */,
+				C37AB16725593BDF006BE25A /* Result.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,8 +14,6 @@ extension SwinjectStoryboard {
     @objc class func setup() {
         let mainContainer = MainContainer.sharedContainer.container
         
-        defaultContainer.storyboardInitCompleted(AudioRecordViewController.self) { _, controller in
-            controller.viewModel = mainContainer.resolve(AudioRecordViewModel.self)
-        }
+        defaultContainer.storyboardInitCompleted(AudioRecordViewController.self) { _, controller in }
     }
 }

@@ -7,11 +7,11 @@
 
 import AVFoundation
 
-class Recorder: NSObject {
+class Recorder:NSObject {
     
     private lazy var recordingSession = AVAudioSession.sharedInstance()
     
-    private let recordFileURL = Directories.documentsDirectory.appendingPathComponent("002_024.m4a")
+    private var recordFileURL:URL
     private var audioRecorder: AVAudioRecorder?
     private var completion: ((Result) -> Void)?
 
@@ -22,10 +22,15 @@ class Recorder: NSObject {
 
     private var isCanceled = false
 
+    init(fileUrl: URL) {
+        
+        recordFileURL = fileUrl
+    }
+    
     func startRecording(with completion: @escaping (Result) -> Void) {
         self.completion = completion
         isCanceled = false
-
+        
         DispatchQueue.global(qos: .userInitiated).async {
             do {
                 try self.recordingSession.setCategory(.playAndRecord)
@@ -64,19 +69,22 @@ class Recorder: NSObject {
 
 }
 
+
 extension Recorder: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
-        handleFinish()
+        
         guard !isCanceled else {
             completion?(.canceled)
             return
         }
 
         if flag {
-            completion?(.success(recordFileURL))
+            completion?(.success(recorder.url))
         } else {
             completion?(.failure(Error.failedToEncodeAudio))
         }
+        
+        handleFinish()
     }
 
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Swift.Error?) {
@@ -94,24 +102,4 @@ extension Recorder: AVAudioRecorderDelegate {
     }
 }
 
-extension Recorder {
-    enum Result {
-        case success(URL)
-        case failure(Swift.Error)
-        case canceled
-    }
 
-    enum Error: LocalizedError {
-        case failedToEncodeAudio
-        case permissionDenied
-
-        var errorDescription: String? {
-            switch self {
-            case .failedToEncodeAudio:
-                return NSLocalizedString("Failed to encode audio", comment: "")
-            case .permissionDenied:
-                return NSLocalizedString("Permission denied. Please, allow access to micro in settings", comment: "")
-            }
-        }
-    }
-}
