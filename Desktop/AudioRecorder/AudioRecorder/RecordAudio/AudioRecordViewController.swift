@@ -119,7 +119,7 @@ class AudioRecordViewController: UIViewController {
                     self.btnPlay.isHidden  = false
                 }
                 if isRecording {
-                    self.lblRecording.text = "Recording ..."
+                    self.lblRecording.text = NSLocalizedString("Recording", comment: "")
                     self.btnRecord.setImage(UIImage(imageLiteralResourceName: "barRecordPlaying"), for: .normal)
                 } else {
                     
@@ -136,7 +136,7 @@ class AudioRecordViewController: UIViewController {
             
             if isPlaying {
                 
-                self?.lblRecording.text = "Playing ..."
+                self?.lblRecording.text = NSLocalizedString("Playing", comment: "")
             }
             else {
                 self?.lblRecording.text = ""

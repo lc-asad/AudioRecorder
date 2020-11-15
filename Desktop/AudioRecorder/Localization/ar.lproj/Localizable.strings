@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  AudioRecorder
+
+  Created by Asad Ullah on 15/11/2020.
+  
+*/
+
+"Recording" = "تسجيل ...";
+"Playing"   = "تلعب ...";
+"Audio encode failed" = "فشل ترميز الصوت";
+"Micro phone permission" = "طلب الاذن مرفوض. من فضلك ، اسمح بالوصول إلى الإعدادات الدقيقة";
+"Other Error" = "حدث خطأ ، يرجى المحاولة مرة أخرى";

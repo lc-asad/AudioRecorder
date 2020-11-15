@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  AudioRecorder
+
+  Created by Asad Ullah on 15/11/2020.
+  
+*/
+
+"Recording" = "Recording ...";
+"Playing"   = "Playing ...";
+"Audio encode failed" = "Failed to encode audio";
+"Micro phone permission" = "Permission denied. Please, allow access to micro in settings";
+"Other Error" = "An error occured, please try again";
+
+

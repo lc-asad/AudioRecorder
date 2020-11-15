@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct Store {
     
     let baseURL:URL? = Directories.documentsDirectory
@@ -14,6 +15,7 @@ struct Store {
     let fileName: String!
     
     init(fileName: String) {
+        
         self.fileName = fileName
     }
     

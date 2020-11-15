@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "Recording ..."; ObjectID = "Ct5-9y-As2"; */
+"Ct5-9y-As2.text" = "Recording ...";
+
+/* Class = "UINavigationItem"; title = "Record Audio"; ObjectID = "PRq-0v-Qu4"; */
+"PRq-0v-Qu4.title" = "Record Audio";
+
+/* Class = "UILabel"; text = "Share recording"; ObjectID = "Y7t-4m-erI"; */
+"Y7t-4m-erI.text" = "Share recording";
+
+/* Class = "UILabel"; text = "Re-record"; ObjectID = "bo1-Df-hUH"; */
+"bo1-Df-hUH.text" = "Re-record";
+
+/* Class = "UILabel"; text = "Recording options"; ObjectID = "cZW-sN-N5c"; */
+"cZW-sN-N5c.text" = "Recording options";
+
+/* Class = "UIButton"; normalTitle = "Memorized"; ObjectID = "egb-BB-b8H"; */
+"egb-BB-b8H.normalTitle" = "Memorized";
+
+/* Class = "UIButton"; normalTitle = "Again"; ObjectID = "iFd-EX-MIP"; */
+"iFd-EX-MIP.normalTitle" = "Again";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "jpk-X5-Tof"; */
+"jpk-X5-Tof.normalTitle" = "Cancel";
+
+/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "lRw-bv-TM2"; */
+"lRw-bv-TM2.normalTitle" = "Cancel";
+
+/* Class = "UILabel"; text = "Delete recording"; ObjectID = "o8w-Av-Nh9"; */
+"o8w-Av-Nh9.text" = "Delete recording";

@@ -20,7 +20,7 @@ class MainContainer {
     
     private func setupDefaultContainers() {
         
-        container.register(AudioRecordModel.self) {_ in AudioRecordModel(name: "002_024.m4a")}
+        container.register(AudioRecordModel.self) {_ in AudioRecordModel()}
         container.register(AudioRecordViewModel.self, factory: { resolver in
             return AudioRecordViewModel()
         })

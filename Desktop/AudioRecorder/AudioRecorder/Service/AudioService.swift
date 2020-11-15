@@ -9,22 +9,39 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+protocol AudioServiceProtocol {
 
-final class AudioService {
+    // MARK: Variables
+    var recordPlayer: Player {get}
+    var isRecording :BehaviorRelay<Bool>{get}
+    var isPlaying   :BehaviorRelay<Bool>{get}
+    var isFileExists:BehaviorRelay<String>{get}
+    
+    // MARK: Methods
+    func startRecording<T>(with fileUrl: T)
+    func stopRecording()
+    func cancelRecording()
+    
+    func playItem(with fileUrl: URL)
+    func stopPlayer()
+    func deleteFile(at model: AudioRecordModel)
+    
+}
+
+final class AudioService:AudioServiceProtocol {
     
     static let shared = AudioService()
     
-    private var recorder: Recorder!
-    private lazy var recordPlayer =  Player()
+    private  var recorder: Recorder!
+    internal var recordPlayer =  Player()
     
-    let isRecording  = BehaviorRelay(value: false)
-    let isPlaying    = BehaviorRelay(value: false)
-    let isFileExists = BehaviorRelay<String>(value: "")
+    var isRecording  = BehaviorRelay(value: false)
+    var isPlaying    = BehaviorRelay(value: false)
+    var isFileExists = BehaviorRelay<String>(value: "")
     
-    func startRecording(with fileUrl: URL) {
+    func startRecording<T>(with fileUrl: T) {
         
         recorder = Recorder(fileUrl: fileUrl)
-        
         isRecording.accept(true)
         recorder.startRecording(with: { [weak self] result in
             guard self != nil else { return }
@@ -85,7 +102,7 @@ final class AudioService {
     
     
     //MARK: Share file
-    func sharePersistFile(viewcontroller: AudioRecordViewController, filePath: URL) {
+    func sharePersistFile<T:UIViewController >(viewcontroller: T, filePath: URL) {
         
         let activityItems: [Any] = [filePath, "Share file!"]
         let activityController = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
@@ -94,6 +111,7 @@ final class AudioService {
         activityController.popoverPresentationController?.sourceRect = viewcontroller.view.frame
         viewcontroller.present(activityController, animated: true, completion: nil)
     }
+    
 }
 
 

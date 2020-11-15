@@ -7,22 +7,41 @@
 
 import Foundation
 
-enum Result {
-    case success(URL)
-    case failure(Swift.Error)
+enum Result<T, E: Error> {
+    case success(T)
+    case failure(E)
     case canceled
 }
 
-enum Error: LocalizedError {
+
+enum ErrorResult: Error {
     case failedToEncodeAudio
     case permissionDenied
-    
+    case otherError
     var errorDescription: String? {
         switch self {
         case .failedToEncodeAudio:
-            return NSLocalizedString("Failed to encode audio", comment: "")
+            return NSLocalizedString("Audio encode failed", comment: "")
         case .permissionDenied:
-            return NSLocalizedString("Permission denied. Please, allow access to micro in settings", comment: "")
+            return NSLocalizedString("Micro phone permission", comment: "")
+         case .otherError:
+            return NSLocalizedString("Other Error", comment: "")
         }
     }
 }
+
+
+
+//enum Error: LocalizedError {
+//    case failedToEncodeAudio
+//    case permissionDenied
+//
+//    var errorDescription: String? {
+//        switch self {
+//        case .failedToEncodeAudio:
+//            return NSLocalizedString("Audio encode failed", comment: "")
+//        case .permissionDenied:
+//            return NSLocalizedString("Micro phone permission", comment: "")
+//        }
+//    }
+//}

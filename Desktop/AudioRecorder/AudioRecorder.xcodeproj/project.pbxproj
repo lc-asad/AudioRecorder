@@ -16,13 +16,15 @@
 		C35194002552C6CC00169655 /* AudioRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35193FF2552C6CB00169655 /* AudioRecordViewModel.swift */; };
 		C37230F72552FD3600A09B49 /* Recorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37230F62552FD3600A09B49 /* Recorder.swift */; };
 		C37230FA2552FDEE00A09B49 /* Directories.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37230F92552FDEE00A09B49 /* Directories.swift */; };
-		C372310325531D8E00A09B49 /* AudioRecord.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C372310225531D8E00A09B49 /* AudioRecord.storyboard */; };
 		C372312325532A5F00A09B49 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372312125532A5F00A09B49 /* Player.swift */; };
 		C37AB16725593BDF006BE25A /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AB16625593BDF006BE25A /* Result.swift */; };
 		C37AB177255BCC44006BE25A /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AB176255BCC44006BE25A /* AudioService.swift */; };
 		C37AB183255BD61B006BE25A /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37AB182255BD61B006BE25A /* Store.swift */; };
 		C37DB2172555613100758A5A /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37DB2162555613100758A5A /* ViewExtensions.swift */; };
 		C3A24588255707B200C2A00E /* StoryboardContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A24587255707B200C2A00E /* StoryboardContainer.swift */; };
+		C3CA02152560FF4F0009EA5B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3CA02172560FF4F0009EA5B /* Localizable.strings */; };
+		C3CA021E256106B50009EA5B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C3CA0220256106B50009EA5B /* InfoPlist.strings */; };
+		C3CA0226256110420009EA5B /* AudioRecord.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3CA0228256110420009EA5B /* AudioRecord.storyboard */; };
 		EA9082CFDB905A111F958EE5 /* Pods_AudioRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31D65480626A6BC221B4E752 /* Pods_AudioRecorder.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,13 +43,19 @@
 		C35193FF2552C6CB00169655 /* AudioRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecordViewModel.swift; sourceTree = "<group>"; };
 		C37230F62552FD3600A09B49 /* Recorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recorder.swift; sourceTree = "<group>"; };
 		C37230F92552FDEE00A09B49 /* Directories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Directories.swift; sourceTree = "<group>"; };
-		C372310225531D8E00A09B49 /* AudioRecord.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AudioRecord.storyboard; sourceTree = "<group>"; };
 		C372312125532A5F00A09B49 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		C37AB16625593BDF006BE25A /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		C37AB176255BCC44006BE25A /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		C37AB182255BD61B006BE25A /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		C37DB2162555613100758A5A /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		C3A24587255707B200C2A00E /* StoryboardContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardContainer.swift; sourceTree = "<group>"; };
+		C3CA02162560FF4F0009EA5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3CA02182560FFB50009EA5B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
+		C3CA021F256106B50009EA5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C3CA0222256106B80009EA5B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C3CA0227256110420009EA5B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/AudioRecord.storyboard; sourceTree = "<group>"; };
+		C3CA022B256110480009EA5B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AudioRecord.strings; sourceTree = "<group>"; };
+		C3CA022D256110490009EA5B /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/AudioRecord.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				C35193E42552C56600169655 /* AudioRecorder */,
+				C3CA021D256106740009EA5B /* Localization */,
 				C35193E32552C56600169655 /* Products */,
 				4CCDC6AEA0BEF863A63A1376 /* Pods */,
 				14CBEC12321A5E55F1D0D4CE /* Frameworks */,
@@ -118,7 +127,7 @@
 				C35193FB2552C6BB00169655 /* AudioRecordModel.swift */,
 				C35193FF2552C6CB00169655 /* AudioRecordViewModel.swift */,
 				C35193E92552C56600169655 /* AudioRecordViewController.swift */,
-				C372310225531D8E00A09B49 /* AudioRecord.storyboard */,
+				C3CA0228256110420009EA5B /* AudioRecord.storyboard */,
 			);
 			path = RecordAudio;
 			sourceTree = "<group>";
@@ -151,6 +160,15 @@
 				C37AB182255BD61B006BE25A /* Store.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		C3CA021D256106740009EA5B /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				C3CA02172560FF4F0009EA5B /* Localizable.strings */,
+				C3CA0220256106B50009EA5B /* InfoPlist.strings */,
+			);
+			path = Localization;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +214,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ar,
 			);
 			mainGroup = C35193D92552C56600169655;
 			productRefGroup = C35193E32552C56600169655 /* Products */;
@@ -213,8 +232,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				C35193F22552C56A00169655 /* LaunchScreen.storyboard in Resources */,
+				C3CA02152560FF4F0009EA5B /* Localizable.strings in Resources */,
 				C35193EF2552C56A00169655 /* Assets.xcassets in Resources */,
-				C372310325531D8E00A09B49 /* AudioRecord.storyboard in Resources */,
+				C3CA0226256110420009EA5B /* AudioRecord.storyboard in Resources */,
+				C3CA021E256106B50009EA5B /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +315,34 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		C3CA02172560FF4F0009EA5B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3CA02162560FF4F0009EA5B /* en */,
+				C3CA02182560FFB50009EA5B /* ar */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		C3CA0220256106B50009EA5B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3CA021F256106B50009EA5B /* en */,
+				C3CA0222256106B80009EA5B /* ar */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C3CA0228256110420009EA5B /* AudioRecord.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C3CA0227256110420009EA5B /* Base */,
+				C3CA022B256110480009EA5B /* en */,
+				C3CA022D256110490009EA5B /* ar */,
+			);
+			name = AudioRecord.storyboard;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -301,6 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -348,7 +398,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -362,6 +412,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -403,7 +454,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

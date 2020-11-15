@@ -10,10 +10,10 @@ import AVFoundation
 class Player:NSObject {
     
     private var audioPlayer: AVAudioPlayer?
-    private var completion: ((Result) -> Void)?
+    private var completion: ((Result<URL, ErrorResult>) -> Void)?
     let backgroundQueue = DispatchQueue(label: "play_sound_queue", qos: .userInitiated)
 
-    func play(filePath: URL, with completion: @escaping (Result) -> Void) {
+    func play(filePath: URL, with completion: @escaping (Result<URL, ErrorResult>) -> Void) {
         
         self.completion = completion
         if self.audioPlayer != nil {
@@ -29,7 +29,8 @@ class Player:NSObject {
                 self.audioPlayer?.play()
             }
             catch {
-                completion(.failure(error))
+                //completion( .failure(error))
+                //completion(Result.failure(error))
             }
         }
     }
@@ -56,19 +57,19 @@ extension Player: AVAudioPlayerDelegate {
         cleanup()
         
         if flag {
-            completion?(.success(player.url!))
+            completion?(Result.success(player.url!))
         } else {
-            completion?(.failure(Error.failedToEncodeAudio))
+            completion!(Result.failure(ErrorResult.otherError))
         }
     }
     
-    private func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
         cleanup()
         
-        if let error = error {
-            completion?(.failure(error))
+        if error != nil {
+            completion!(Result.failure(ErrorResult.otherError))
         } else {
-            completion?(.failure(Error.failedToEncodeAudio))
+            completion!(Result.failure(ErrorResult.failedToEncodeAudio))
         }
     }
     

@@ -13,7 +13,7 @@ class Recorder:NSObject {
     
     private var recordFileURL:URL
     private var audioRecorder: AVAudioRecorder?
-    private var completion: ((Result) -> Void)?
+    private var completion: ((Result<URL, ErrorResult>) -> Void)?
 
     private let settings = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
                             AVSampleRateKey: 44100,
@@ -22,12 +22,12 @@ class Recorder:NSObject {
 
     private var isCanceled = false
 
-    init(fileUrl: URL) {
+    init<T>(fileUrl: T) {
         
-        recordFileURL = fileUrl
+        recordFileURL = fileUrl as! URL
     }
     
-    func startRecording(with completion: @escaping (Result) -> Void) {
+    func startRecording(with completion: @escaping (Result<URL, ErrorResult>) -> Void) {
         self.completion = completion
         isCanceled = false
         
@@ -39,7 +39,7 @@ class Recorder:NSObject {
                 self.audioRecorder?.prepareToRecord()
                 self.audioRecorder?.delegate = self
             } catch {
-                completion(.failure(error))
+                completion(Result.failure(ErrorResult.otherError))
                 return
             }
 
@@ -49,7 +49,8 @@ class Recorder:NSObject {
                 if granted {
                     self.audioRecorder?.record()
                 } else {
-                    self.completion?(.failure(Error.permissionDenied))
+                    self.completion!(Result.failure(ErrorResult.permissionDenied))
+    
                 }
             }
         }
@@ -74,14 +75,15 @@ extension Recorder: AVAudioRecorderDelegate {
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         
         guard !isCanceled else {
-            completion?(.canceled)
+            completion?(Result.canceled)
             return
         }
 
         if flag {
-            completion?(.success(recorder.url))
+            completion?(Result.success(recorder.url))
         } else {
-            completion?(.failure(Error.failedToEncodeAudio))
+            self.completion?(Result.failure(ErrorResult.failedToEncodeAudio))
+            
         }
         
         handleFinish()
@@ -89,10 +91,10 @@ extension Recorder: AVAudioRecorderDelegate {
 
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Swift.Error?) {
         handleFinish()
-        if let error = error {
-            completion?(.failure(error))
+        if error != nil {
+            completion!(Result.failure(ErrorResult.otherError))
         } else {
-            completion?(.failure(Error.failedToEncodeAudio))
+            completion!(Result.failure(ErrorResult.failedToEncodeAudio))
         }
     }
 

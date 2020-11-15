@@ -1,0 +1,10 @@
+/* 
+  InfoPlist.strings
+  AudioRecorder
+
+  Created by Asad Ullah on 15/11/2020.
+  
+*/
+
+"NSMicrophoneUsageDescription" = "تحتاج إلى الوصول إلى الميكروفون لتسجيل الصوت";
+"CFBundleDisplayName" = " مسجل الصوت";

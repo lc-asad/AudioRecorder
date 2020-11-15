@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "Recording ..."; ObjectID = "Ct5-9y-As2"; */
+"Ct5-9y-As2.text" = "تسجيل ...";
+
+/* Class = "UINavigationItem"; title = "Record Audio"; ObjectID = "PRq-0v-Qu4"; */
+"PRq-0v-Qu4.title" = "تسجيل صوتي";
+
+/* Class = "UILabel"; text = "مشاركة التسجيل"; ObjectID = "Y7t-4m-erI"; */
+"Y7t-4m-erI.text" = "مشاركة التسجيل";
+
+/* Class = "UILabel"; text = "إعادة التسجيل"; ObjectID = "bo1-Df-hUH"; */
+"bo1-Df-hUH.text" = "إعادة التسجيل";
+
+/* Class = "UILabel"; text = "خيارات التسجيل"; ObjectID = "cZW-sN-N5c"; */
+"cZW-sN-N5c.text" = "خيارات التسجيل";
+
+/* Class = "UIButton"; normalTitle = "أصبت"; ObjectID = "egb-BB-b8H"; */
+"egb-BB-b8H.normalTitle" = "أصبت";
+
+/* Class = "UIButton"; normalTitle = "  إعادة"; ObjectID = "iFd-EX-MIP"; */
+"iFd-EX-MIP.normalTitle" = "  إعادة";
+
+/* Class = "UIButton"; normalTitle = "إلغاء"; ObjectID = "jpk-X5-Tof"; */
+"jpk-X5-Tof.normalTitle" = "إلغاء";
+
+/* Class = "UIButton"; normalTitle = "إلغاء"; ObjectID = "lRw-bv-TM2"; */
+"lRw-bv-TM2.normalTitle" = "إلغاء";
+
+/* Class = "UILabel"; text = "حذف التسجيل"; ObjectID = "o8w-Av-Nh9"; */
+"o8w-Av-Nh9.text" = "حذف التسجيل";

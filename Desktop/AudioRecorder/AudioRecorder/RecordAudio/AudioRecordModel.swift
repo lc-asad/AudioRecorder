@@ -7,14 +7,21 @@
 
 import AVFoundation
 
-struct AudioRecordModel {
+protocol AudioRecordProtocol {
+
+    var name:  String { get }
+    func deleteAudioFile()
+}
+
+
+struct AudioRecordModel:AudioRecordProtocol {
     
     var name: String
     let store: Store?
     
-    init(name: String) {
-        
-        self.name = name
+    
+    init() {
+        self.name = "002_024.m4a"
         self.store = Store(fileName: self.name)
     }
     
@@ -26,5 +33,6 @@ struct AudioRecordModel {
         store?.removeFile(for: self)
 
     }
+    
 }
 

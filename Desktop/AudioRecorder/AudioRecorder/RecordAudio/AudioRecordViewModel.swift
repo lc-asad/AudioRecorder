@@ -12,7 +12,7 @@ import RxCocoa
 struct AudioRecordViewModel {
     
     private var service: AudioService!
-    let model = AudioRecordModel(name: "002_024.m4a")
+    let model = AudioRecordModel()
     
     let disposeBag = DisposeBag()
     let isRecording: BehaviorRelay<Bool>
@@ -62,9 +62,9 @@ struct AudioRecordViewModel {
     }
     
     // Share file
-    func shareFile(viewcontroller: AudioRecordViewController)  {
+    func shareFile<T: UIViewController>(viewcontroller: T)  {
         
-        service.sharePersistFile(viewcontroller: viewcontroller, filePath: model.fileURL!)
+        service.sharePersistFile(viewcontroller: viewcontroller as! AudioRecordViewController, filePath: model.fileURL!)
     }
 }
 
